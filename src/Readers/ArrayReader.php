@@ -12,7 +12,7 @@ use Zaphyr\Config\Exceptions\ReaderException;
  * Class ArrayReader
  *
  * @package Zaphyr\Config\Readers
- * @author  merloxx <hello@merloxx.it>
+ * @author  merloxx <merloxx@zaphyr.org>
  */
 class ArrayReader implements ReaderInterface
 {

@@ -11,7 +11,7 @@ use Zaphyr\Config\Exceptions\ReaderException;
  * Class JsonReader
  *
  * @package Zaphyr\Config\Readers
- * @author  merloxx <hello@merloxx.it>
+ * @author  merloxx <merloxx@zaphyr.org>
  */
 class JsonReader implements ReaderInterface
 {

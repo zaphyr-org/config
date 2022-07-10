@@ -1,7 +1,7 @@
 # Code of Conduct
 
 The ZAPHYR code of conduct is derived from the Ruby code of conduct.
-Any violations of the code of conduct may be reported to hello@merloxx.it
+Any violations of the code of conduct may be reported to merloxx@zaphyr.org
 
 - Participants will be tolerant of opposing views.
 

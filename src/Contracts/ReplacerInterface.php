@@ -10,7 +10,7 @@ use Zaphyr\Config\Exceptions\ReplacerException;
  * Interface ReplacerInterface
  *
  * @package Zaphyr\Config\Contracts
- * @author  merloxx <hello@merloxx.it>
+ * @author  merloxx <merloxx@zaphyr.org>
  */
 interface ReplacerInterface
 {

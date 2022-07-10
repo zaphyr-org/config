@@ -30,7 +30,7 @@ Bug reports and feature requests can be submitted on the [Github Issue Tracker](
 
 ## Security
 
-If you discover security related issues, please email security@merloxx.it **instead of using
+If you discover security related issues, please email security@zaphyr.org **instead of using
 the issue tracker!**
 
 ## Contributing

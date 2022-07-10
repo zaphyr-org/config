@@ -10,7 +10,7 @@ use Zaphyr\Config\Exceptions\ReaderException;
  * Interface LoaderInterface
  *
  * @package Zaphyr\Config\Contracts
- * @author  merloxx <hello@merloxx.it>
+ * @author  merloxx <merloxx@zaphyr.org>
  */
 interface ReaderInterface
 {

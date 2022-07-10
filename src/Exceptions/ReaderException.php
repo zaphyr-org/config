@@ -10,7 +10,7 @@ use Exception;
  * Class ReaderException
  *
  * @package Zaphyr\Config\Exceptions
- * @author  merloxx <hello@merloxx.it>
+ * @author  merloxx <merloxx@zaphyr.org>
  */
 class ReaderException extends Exception
 {

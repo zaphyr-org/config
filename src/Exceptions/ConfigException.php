@@ -10,7 +10,7 @@ use Exception;
  * Class ConfigException
  *
  * @package Zaphyr\Config\Exceptions
- * @author  merloxx <hello@merloxx.it>
+ * @author  merloxx <merloxx@zaphyr.org>
  */
 class ConfigException extends Exception
 {
