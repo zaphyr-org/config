@@ -1,3 +1,9 @@
+![License](https://img.shields.io/github/license/zaphyr-org/config?style=for-the-badge)
+![Version](https://img.shields.io/packagist/v/zaphyr-org/config?style=for-the-badge)
+![Dowloads](https://img.shields.io/packagist/dt/zaphyr-org/config?style=for-the-badge)
+![Stars](https://img.shields.io/github/stars/zaphyr-org/config?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/zaphyr-org/config?style=for-the-badge)
+
 # CONFIG
 
 Simple configuration file loader. Supported file types are `ini`, `php`, `xml`, `json` and `yml`.
