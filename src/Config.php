@@ -21,7 +21,7 @@ use Zaphyr\Config\Replacers\EnvReplacer;
  * Class Config
  *
  * @package Zaphyr\Config
- * @author  merloxx <hello@merloxx.it>
+ * @author  merloxx <merloxx@zaphyr.org>
  */
 class Config implements ConfigInterface
 {
@@ -193,12 +193,11 @@ class Config implements ConfigInterface
 
     /**
      * @param array<string, mixed>|string $item
-     * @param string                      $key
      *
      * @throws ConfigException
      * @throws ReplacerException
      */
-    protected function makeReplacements(&$item, string $key): void
+    protected function makeReplacements(&$item): void
     {
         if (is_string($item) && strpos($item, '%') !== false) {
             $search = $this->getSearchString($item);
