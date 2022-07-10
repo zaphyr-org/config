@@ -428,11 +428,16 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
 
         file_put_contents(
-            $this->tempFile = __DIR__ . '/TestAsset/replacer.php',
+            $tempFile = __DIR__ . '/TestAsset/replacer.php',
             '<?php return ["foo" => "The value %nope:string% is replaced"];'
         );
 
-        $config = new Config();
-        $config->load(['config' => $this->tempFile]);
+        try {
+            $config = new Config();
+            $config->load(['config' => $tempFile]);
+        } catch (ConfigException $e) {
+            unlink($tempFile);
+            throw $e;
+        }
     }
 }
