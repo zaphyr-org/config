@@ -161,9 +161,9 @@ $config->addReader('custom', MySuperCustomReader::class);
 >**Note:** New reader instances must always be added before the first use of the `load()` method.
 Otherwise, the `load()` method throws an error because it does not yet know the new reader!
 
-## Create custom replacers
+## Create custom replacer
 
-You can also create your own replacers for your configuration files:
+You can also create your own replacer for your configuration files:
 
 ```php
 use Zaphyr\Config\Config;
