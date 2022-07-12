@@ -9,7 +9,7 @@
 - [Create custom reader](#create-custom-reader)
 - [Create custom replacer](#create-custom-replacer)
 
-# Loading files
+## Loading files
 
 Files can be loaded via the `load()` method, or by direct instantiation:
 

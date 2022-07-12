@@ -1,7 +1,7 @@
 # How to Contribute
 
 Contributions are welcome and will be fully credited.
-I accept contributions via Pull Requests on [Github](https://github.com/merloxx/exception).
+I accept contributions via Pull Requests on [Github](https://github.com/zaphyr-org/config).
 
 ## Pull Requests
 
