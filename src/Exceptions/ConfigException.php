@@ -7,9 +7,8 @@ namespace Zaphyr\Config\Exceptions;
 use Exception;
 
 /**
- * Class ConfigException
+ * Class ConfigException.
  *
- * @package Zaphyr\Config\Exceptions
  * @author  merloxx <merloxx@zaphyr.org>
  */
 class ConfigException extends Exception

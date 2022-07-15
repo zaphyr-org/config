@@ -9,9 +9,8 @@ use Zaphyr\Config\Contracts\ReaderInterface;
 use Zaphyr\Config\Exceptions\ReaderException;
 
 /**
- * Class ArrayReader
+ * Class ArrayReader.
  *
- * @package Zaphyr\Config\Readers
  * @author  merloxx <merloxx@zaphyr.org>
  */
 class ArrayReader implements ReaderInterface

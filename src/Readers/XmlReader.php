@@ -9,9 +9,8 @@ use Zaphyr\Config\Contracts\ReaderInterface;
 use Zaphyr\Config\Exceptions\ReaderException;
 
 /**
- * Class XmlReader
+ * Class XmlReader.
  *
- * @package Zaphyr\Config\Readers
  * @author  merloxx <merloxx@zaphyr.org>
  */
 class XmlReader implements ReaderInterface
@@ -29,7 +28,7 @@ class XmlReader implements ReaderInterface
         $contents = file_get_contents($file);
 
         if (!is_string($contents)) {
-            throw new ReaderException('Could not read file "' . $file . '"');
+            throw new ReaderException('Could not read file "'.$file.'"');
         }
 
         $data = simplexml_load_string($contents);
@@ -41,13 +40,13 @@ class XmlReader implements ReaderInterface
                 throw new ReaderException($error->message);
             }
 
-            throw new ReaderException('Could not read file "' . $file . '"');
+            throw new ReaderException('Could not read file "'.$file.'"');
         }
 
         $contents = json_encode($data);
 
         if (!is_string($contents)) {
-            throw new ReaderException('Could not read file "' . $file . '"');
+            throw new ReaderException('Could not read file "'.$file.'"');
         }
 
         return json_decode($contents, true);

@@ -17,7 +17,7 @@ class ArrayReaderTest extends TestCase
 
     public function setUp(): void
     {
-        file_put_contents($this->tempFile = __DIR__ . '/temp.php', '<?php return["foo" => "bar"];');
+        file_put_contents($this->tempFile = __DIR__.'/temp.php', '<?php return["foo" => "bar"];');
     }
 
     public function tearDown(): void

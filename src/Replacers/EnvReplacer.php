@@ -8,9 +8,8 @@ use Zaphyr\Config\Contracts\ReplacerInterface;
 use Zaphyr\Config\Exceptions\ReplacerException;
 
 /**
- * Class EnvReplacer
+ * Class EnvReplacer.
  *
- * @package Zaphyr\Config\Replacers
  * @author  merloxx <merloxx@zaphyr.org>
  */
 class EnvReplacer implements ReplacerInterface
@@ -23,7 +22,7 @@ class EnvReplacer implements ReplacerInterface
         $env = $_SERVER[$value] ?? $_ENV[$value] ?? false;
 
         if ($env === false) {
-            throw new ReplacerException('The environment variable "' . $value . '" does not exist');
+            throw new ReplacerException('The environment variable "'.$value.'" does not exist');
         }
 
         if ($env === 'true' || $env === '(true)') {

@@ -7,9 +7,8 @@ namespace Zaphyr\Config\Contracts;
 use Zaphyr\Config\Exceptions\ReplacerException;
 
 /**
- * Interface ReplacerInterface
+ * Interface ReplacerInterface.
  *
- * @package Zaphyr\Config\Contracts
  * @author  merloxx <merloxx@zaphyr.org>
  */
 interface ReplacerInterface
@@ -17,9 +16,9 @@ interface ReplacerInterface
     /**
      * @param string $value
      *
-     * @return mixed
-     *
      * @throws ReplacerException
+     *
+     * @return mixed
      */
     public function replace(string $value);
 }

@@ -28,9 +28,8 @@ class EnvReplacerTest extends TestCase
     /**
      * ------------------------------------------
      * REPLACE
-     * ------------------------------------------
+     * ------------------------------------------.
      */
-
     public function testReplace(): void
     {
         $_ENV['value'] = 'foo';

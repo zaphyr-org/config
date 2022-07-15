@@ -7,9 +7,8 @@ namespace Zaphyr\Config\Contracts;
 use Zaphyr\Config\Exceptions\ReaderException;
 
 /**
- * Interface LoaderInterface
+ * Interface LoaderInterface.
  *
- * @package Zaphyr\Config\Contracts
  * @author  merloxx <merloxx@zaphyr.org>
  */
 interface ReaderInterface
@@ -17,9 +16,9 @@ interface ReaderInterface
     /**
      * @param string $file
      *
-     * @return array<string, mixed>
-     *
      * @throws ReaderException
+     *
+     * @return array<string, mixed>
      */
     public function read(string $file): array;
 }

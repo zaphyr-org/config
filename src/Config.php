@@ -18,9 +18,8 @@ use Zaphyr\Config\Readers\YamlReader;
 use Zaphyr\Config\Replacers\EnvReplacer;
 
 /**
- * Class Config
+ * Class Config.
  *
- * @package Zaphyr\Config
  * @author  merloxx <merloxx@zaphyr.org>
  */
 class Config implements ConfigInterface
@@ -39,11 +38,11 @@ class Config implements ConfigInterface
      * @var array<string, string>
      */
     protected static $readers = [
-        'php' => ArrayReader::class,
-        'ini' => IniReader::class,
+        'php'  => ArrayReader::class,
+        'ini'  => IniReader::class,
         'json' => JsonReader::class,
-        'xml' => XmlReader::class,
-        'yml' => YamlReader::class,
+        'xml'  => XmlReader::class,
+        'yml'  => YamlReader::class,
         'yaml' => YamlReader::class,
     ];
 
@@ -100,7 +99,7 @@ class Config implements ConfigInterface
     {
         foreach ($items as $namespace => $item) {
             if (isset($this->items[$namespace])) {
-                throw new ConfigException('The namespace "' . $namespace . '" is already in use');
+                throw new ConfigException('The namespace "'.$namespace.'" is already in use');
             }
 
             if (!is_string($item)) {
@@ -113,11 +112,11 @@ class Config implements ConfigInterface
             }
 
             if (!(is_file($item) || is_dir($item))) {
-                throw new ConfigException('The configuration file or directory "' . $item . '" does not exist');
+                throw new ConfigException('The configuration file or directory "'.$item.'" does not exist');
             }
 
             if (is_file($item)) {
-                $this->loadFromFile((string)$namespace, $item);
+                $this->loadFromFile((string) $namespace, $item);
             }
 
             if (is_dir($item)) {
@@ -135,13 +134,13 @@ class Config implements ConfigInterface
     protected function loadFromDirectory(string $path): void
     {
         if (!is_readable($path)) {
-            throw new ConfigException('The path "' . $path . '" is not readable');
+            throw new ConfigException('The path "'.$path.'" is not readable');
         }
 
-        $files = glob($path . '/*');
+        $files = glob($path.'/*');
 
         if (!is_array($files)) {
-            throw new ConfigException('The path "' . $path . '" is not readable');
+            throw new ConfigException('The path "'.$path.'" is not readable');
         }
 
         foreach ($files as $file) {
@@ -161,13 +160,13 @@ class Config implements ConfigInterface
     protected function loadFromFile(string $namespace, string $file): void
     {
         if (!is_readable($file)) {
-            throw new ConfigException('The file "' . $file . '" is not readable');
+            throw new ConfigException('The file "'.$file.'" is not readable');
         }
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
 
         if (!array_key_exists($extension, static::$readers)) {
-            throw new ConfigException('The file extension "' . $extension . '" has no valid reader');
+            throw new ConfigException('The file extension "'.$extension.'" has no valid reader');
         }
 
         $items = $this->getReaderInstance($extension)->read($file);
@@ -203,10 +202,10 @@ class Config implements ConfigInterface
             $search = $this->getSearchString($item);
             $replace = $this->getReplaceValue($search, $item);
 
-            if ($item === '%' . $search . '%') {
+            if ($item === '%'.$search.'%') {
                 $item = $replace;
             } else {
-                $item = str_replace('%' . $search . '%', $replace, $item);
+                $item = str_replace('%'.$search.'%', $replace, $item);
             }
         }
     }
@@ -228,17 +227,17 @@ class Config implements ConfigInterface
      * @param string $search
      * @param string $item
      *
-     * @return mixed
-     *
      * @throws ConfigException
      * @throws ReplacerException
+     *
+     * @return mixed
      */
     protected function getReplaceValue(string $search, string $item)
     {
         [$name, $value] = explode(':', $search, 2);
 
         if (!array_key_exists($name, $this->replacers)) {
-            throw new ConfigException('The item "' . $item . '" has no valid replacer');
+            throw new ConfigException('The item "'.$item.'" has no valid replacer');
         }
 
         return $this->getReplacerInstance($name)->replace($value);
@@ -333,7 +332,7 @@ class Config implements ConfigInterface
     public function addReader(string $name, string $reader, bool $force = false): ConfigInterface
     {
         if (!$force && isset(static::$readers[$name])) {
-            throw new ConfigException('The reader with name "' . $name . '" is already in use');
+            throw new ConfigException('The reader with name "'.$name.'" is already in use');
         }
 
         static::$readers[$name] = $reader;
@@ -355,7 +354,7 @@ class Config implements ConfigInterface
     public function addReplacer(string $name, string $replacer, bool $force = false): ConfigInterface
     {
         if (!$force && isset($this->replacers[$name])) {
-            throw new ConfigException('The replacer with name "' . $name . '" is already in use');
+            throw new ConfigException('The replacer with name "'.$name.'" is already in use');
         }
 
         $this->replacers[$name] = $replacer;

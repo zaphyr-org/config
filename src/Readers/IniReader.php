@@ -9,9 +9,8 @@ use Zaphyr\Config\Contracts\ReaderInterface;
 use Zaphyr\Config\Exceptions\ReaderException;
 
 /**
- * Class IniReader
+ * Class IniReader.
  *
- * @package Zaphyr\Config\Readers
  * @author  merloxx <merloxx@zaphyr.org>
  */
 class IniReader implements ReaderInterface
@@ -25,7 +24,7 @@ class IniReader implements ReaderInterface
             $contents = parse_ini_file($file, true);
 
             if (!is_array($contents)) {
-                throw new ReaderException('Could not read file "' . $file . '"');
+                throw new ReaderException('Could not read file "'.$file.'"');
             }
 
             return $contents;

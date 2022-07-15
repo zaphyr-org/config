@@ -17,7 +17,7 @@ class JsonReaderTest extends TestCase
 
     public function setUp(): void
     {
-        file_put_contents($this->tempFile = __DIR__ . '/temp.json', json_encode(['foo' => 'bar']));
+        file_put_contents($this->tempFile = __DIR__.'/temp.json', json_encode(['foo' => 'bar']));
     }
 
     public function tearDown(): void

@@ -7,9 +7,8 @@ namespace Zaphyr\Config\Contracts;
 use Zaphyr\Config\Exceptions\ConfigException;
 
 /**
- * Interface ConfigInterface
+ * Interface ConfigInterface.
  *
- * @package Zaphyr\Config\Contracts
  * @author  merloxx <merloxx@zaphyr.org>
  */
 interface ConfigInterface
@@ -56,9 +55,9 @@ interface ConfigInterface
      * @param string $reader
      * @param bool   $force
      *
-     * @return ConfigInterface
-     *
      * @throws ConfigException
+     *
+     * @return ConfigInterface
      */
     public function addReader(string $name, string $reader, bool $force = false): ConfigInterface;
 
@@ -72,9 +71,9 @@ interface ConfigInterface
      * @param string $replacer
      * @param bool   $force
      *
-     * @return ConfigInterface
-     *
      * @throws ConfigException
+     *
+     * @return ConfigInterface
      */
     public function addReplacer(string $name, string $replacer, bool $force = false): ConfigInterface;
 

@@ -17,7 +17,7 @@ class IniReaderTest extends TestCase
 
     public function setUp(): void
     {
-        file_put_contents($this->tempFile = __DIR__ . '/temp.php', 'foo=bar');
+        file_put_contents($this->tempFile = __DIR__.'/temp.php', 'foo=bar');
     }
 
     public function tearDown(): void

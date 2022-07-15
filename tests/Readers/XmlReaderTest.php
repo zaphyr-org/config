@@ -18,7 +18,7 @@ class XmlReaderTest extends TestCase
     public function setUp(): void
     {
         file_put_contents(
-            $this->tempFile = __DIR__ . '/temp.xml',
+            $this->tempFile = __DIR__.'/temp.xml',
             '<?xml version="1.0" encoding="UTF-8"?><r><foo>bar</foo></r>'
         );
     }
