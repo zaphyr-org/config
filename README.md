@@ -1,12 +1,12 @@
 ![License](https://img.shields.io/github/license/zaphyr-org/config?style=for-the-badge)
 ![Version](https://img.shields.io/packagist/v/zaphyr-org/config?style=for-the-badge)
-![Dowloads](https://img.shields.io/packagist/dt/zaphyr-org/config?style=for-the-badge)
+![Downloads](https://img.shields.io/packagist/dt/zaphyr-org/config?style=for-the-badge)
 ![Stars](https://img.shields.io/github/stars/zaphyr-org/config?style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/zaphyr-org/config?style=for-the-badge)
 
 # CONFIG
 
-Simple configuration file loader. Supported file types are `ini`, `php`, `xml`, `json` and `yml`.
+Load configuration files the easy way. This configuration loader supports PHP, INI, JSON, XML and YAML file extensions.
 
 ## System Requirements
 
@@ -22,11 +22,11 @@ composer require zaphyr-org/config
 
 ## Documentation
 
-You can read the full documentation [here](docs/index.md).
+You can read the full documentation [here](https://zaphyr.org/docs/1.x/repositories/config).
 
 ## Issues
 
-Bug reports and feature requests can be submitted on the [Github Issue Tracker](https://github.com/zaphyr-org/config/issues).
+Bug reports and feature requests can be submitted on the [GitHub Issue Tracker](https://github.com/zaphyr-org/config/issues).
 
 ## Security
 
@@ -35,11 +35,11 @@ the issue tracker!**
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://zaphyr.org/docs/1.x/repositories/contributions) for details.
 
 ## Code of Conduct
 
-Please see [CODE OF CONDUCT](CODE_OF_CONDUCT.md) for details.
+Please see [CODE OF CONDUCT](https://zaphyr.org/docs/1.x/repositories/contributions#content-code-of-conduct) for details.
 
 ## License
 

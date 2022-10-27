@@ -21,7 +21,7 @@ in reverse chronological order by release.
 * Resolve [#1](https://github.com/zaphyr-org/config/issues/1); Delete temporarily created files during unit tests
 * Fix broken link for "Create custom replacer" in documentation index.md
 
-## [v1.0.0](https://github.com/zaphyr-org/config/compare/master...1.0.0) [2022-07-09]
+## v1.0.0] [2022-07-09]
 
 ### New:
 * First stable release version

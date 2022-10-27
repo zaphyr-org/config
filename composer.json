@@ -1,6 +1,6 @@
 {
     "name": "zaphyr-org/config",
-    "description": "Simple configuration file loader. Supported file types are INI, PHP, XML, JSON and YAML.",
+    "description": "Load configuration files the easy way. This configuration loader supports PHP, INI, JSON, XML and YAML file extensions.",
     "keywords": [
         "config",
         "loader",
@@ -47,7 +47,7 @@
         "cs": "phpcs --standard=PSR12 -n src",
         "cbf": "phpcbf --standard=PSR12 -n src",
         "unit": "phpunit --colors=always",
-        "phpstan": "vendor/bin/phpstan analyse --memory-limit 512M",
+        "phpstan": "phpstan analyse --memory-limit 512M",
         "test": [
             "@unit",
             "@phpstan",
