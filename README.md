@@ -43,4 +43,4 @@ Please see [CODE OF CONDUCT](https://zaphyr.org/docs/1.x/repositories/contributi
 
 ## License
 
-This project ist licensed under the MIT license. See [LICENSE](LICENSE.md) for more information.
+This project is licensed under the MIT license. See [LICENSE](LICENSE.md) for more information.
