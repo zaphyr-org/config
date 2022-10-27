@@ -8,10 +8,7 @@ use Zaphyr\Config\Contracts\ReplacerInterface;
 use Zaphyr\Config\Exceptions\ReplacerException;
 
 /**
- * Class EnvReplacer
- *
- * @package Zaphyr\Config\Replacers
- * @author  merloxx <merloxx@zaphyr.org>
+ * @author merloxx <merloxx@zaphyr.org>
  */
 class EnvReplacer implements ReplacerInterface
 {

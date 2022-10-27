@@ -7,10 +7,7 @@ namespace Zaphyr\Config\Exceptions;
 use Exception;
 
 /**
- * Class ReaderException
- *
- * @package Zaphyr\Config\Exceptions
- * @author  merloxx <merloxx@zaphyr.org>
+ * @author merloxx <merloxx@zaphyr.org>
  */
 class ReaderException extends Exception
 {

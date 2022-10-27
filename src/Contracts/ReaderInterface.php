@@ -7,10 +7,7 @@ namespace Zaphyr\Config\Contracts;
 use Zaphyr\Config\Exceptions\ReaderException;
 
 /**
- * Interface LoaderInterface
- *
- * @package Zaphyr\Config\Contracts
- * @author  merloxx <merloxx@zaphyr.org>
+ * @author merloxx <merloxx@zaphyr.org>
  */
 interface ReaderInterface
 {

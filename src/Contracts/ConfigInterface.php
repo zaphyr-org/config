@@ -7,10 +7,7 @@ namespace Zaphyr\Config\Contracts;
 use Zaphyr\Config\Exceptions\ConfigException;
 
 /**
- * Interface ConfigInterface
- *
- * @package Zaphyr\Config\Contracts
- * @author  merloxx <merloxx@zaphyr.org>
+ * @author merloxx <merloxx@zaphyr.org>
  */
 interface ConfigInterface
 {

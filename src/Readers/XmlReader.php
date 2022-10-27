@@ -9,10 +9,7 @@ use Zaphyr\Config\Contracts\ReaderInterface;
 use Zaphyr\Config\Exceptions\ReaderException;
 
 /**
- * Class XmlReader
- *
- * @package Zaphyr\Config\Readers
- * @author  merloxx <merloxx@zaphyr.org>
+ * @author merloxx <merloxx@zaphyr.org>
  */
 class XmlReader implements ReaderInterface
 {

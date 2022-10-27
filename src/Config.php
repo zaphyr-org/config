@@ -18,10 +18,7 @@ use Zaphyr\Config\Readers\YamlReader;
 use Zaphyr\Config\Replacers\EnvReplacer;
 
 /**
- * Class Config
- *
- * @package Zaphyr\Config
- * @author  merloxx <merloxx@zaphyr.org>
+ * @author merloxx <merloxx@zaphyr.org>
  */
 class Config implements ConfigInterface
 {
