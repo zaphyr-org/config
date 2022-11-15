@@ -182,7 +182,9 @@ class Config implements ConfigInterface
     protected function getReaderInstance(string $reader): ReaderInterface
     {
         if (!isset($this->cachedReaders[$reader])) {
-            $this->cachedReaders[$reader] = new static::$readers[$reader]();
+            /** @var ReaderInterface $readerInstance */
+            $readerInstance = static::$readers[$reader];
+            $this->cachedReaders[$reader] = new $readerInstance();
         }
 
         return $this->cachedReaders[$reader];
@@ -249,7 +251,9 @@ class Config implements ConfigInterface
     protected function getReplacerInstance(string $replacer): ReplacerInterface
     {
         if (!isset($this->cachedReplacers[$replacer])) {
-            $this->cachedReplacers[$replacer] = new $this->replacers[$replacer]();
+            /** @var ReplacerInterface $replacerInstance */
+            $replacerInstance = $this->replacers[$replacer];
+            $this->cachedReplacers[$replacer] = new $replacerInstance();
         }
 
         return $this->cachedReplacers[$replacer];
