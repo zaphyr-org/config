@@ -18,9 +18,6 @@ class XmlReader implements ReaderInterface
      */
     public function read(string $file): array
     {
-        // workaround for bug https://bugs.php.net/bug.php?id=62577
-        // a patch is available since 2018-10-15
-        libxml_disable_entity_loader(false);
         libxml_use_internal_errors(true);
 
         $contents = file_get_contents($file);
