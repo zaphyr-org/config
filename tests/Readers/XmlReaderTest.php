@@ -13,7 +13,7 @@ class XmlReaderTest extends TestCase
     /**
      * @var string
      */
-    protected $tempFile;
+    protected string $tempFile;
 
     public function setUp(): void
     {

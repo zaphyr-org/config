@@ -17,12 +17,12 @@ class ConfigTest extends TestCase
     /**
      * @var string
      */
-    protected $tempFile;
+    protected string $tempFile;
 
     /**
      * @var string
      */
-    protected $tempDir;
+    protected string $tempDir;
 
     public function setUp(): void
     {

@@ -14,9 +14,8 @@ interface ReaderInterface
     /**
      * @param string $file
      *
-     * @return array<string, mixed>
-     *
      * @throws ReaderException
+     * @return array<string, mixed>
      */
     public function read(string $file): array;
 }

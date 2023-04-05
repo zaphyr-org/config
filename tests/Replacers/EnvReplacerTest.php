@@ -13,7 +13,7 @@ class EnvReplacerTest extends TestCase
     /**
      * @var EnvReplacer
      */
-    protected $envReplacer;
+    protected EnvReplacer $envReplacer;
 
     public function setUp(): void
     {

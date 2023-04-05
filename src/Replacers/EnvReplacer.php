@@ -15,7 +15,7 @@ class EnvReplacer implements ReplacerInterface
     /**
      * {@inheritdoc}
      */
-    public function replace(string $value)
+    public function replace(string $value): mixed
     {
         $env = $_SERVER[$value] ?? $_ENV[$value] ?? false;
 
@@ -39,7 +39,7 @@ class EnvReplacer implements ReplacerInterface
             return null;
         }
 
-        if (($valueLength = strlen($env)) > 1 && strpos($env, '"') === 0 && $env[$valueLength - 1] === '"') {
+        if (($valueLength = strlen($env)) > 1 && str_starts_with($env, '"') && $env[$valueLength - 1] === '"') {
             return substr($env, 1, -1);
         }
 

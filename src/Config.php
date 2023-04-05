@@ -25,17 +25,17 @@ class Config implements ConfigInterface
     /**
      * @var array<string, mixed>
      */
-    protected $items = [];
+    protected array $items = [];
 
     /**
      * @var array<string, mixed>
      */
-    protected $cachedItems = [];
+    protected array $cachedItems = [];
 
     /**
      * @var array<string, string>
      */
-    protected static $readers = [
+    protected static array $readers = [
         'php' => ArrayReader::class,
         'ini' => IniReader::class,
         'json' => JsonReader::class,
@@ -47,19 +47,19 @@ class Config implements ConfigInterface
     /**
      * @var ReaderInterface[]
      */
-    protected $cachedReaders = [];
+    protected array $cachedReaders = [];
 
     /**
      * @var array<string, string>
      */
-    protected $replacers = [
+    protected array $replacers = [
         'env' => EnvReplacer::class,
     ];
 
     /**
      * @var ReplacerInterface[]
      */
-    protected $cachedReplacers = [];
+    protected array $cachedReplacers = [];
 
     /**
      * @param array<int|string, mixed>|null    $items
@@ -69,7 +69,7 @@ class Config implements ConfigInterface
      * @throws ConfigException
      * @throws ReaderException
      */
-    public function __construct(?array $items = null, ?array $readers = null, ?array $replacers = null)
+    public function __construct(array|null $items = null, array|null $readers = null, array|null $replacers = null)
     {
         if ($readers) {
             foreach ($readers as $name => $reader) {
@@ -191,14 +191,14 @@ class Config implements ConfigInterface
     }
 
     /**
-     * @param array<string, mixed>|string $item
+     * @param string|array<string, mixed> $item
      *
      * @throws ConfigException
      * @throws ReplacerException
      */
-    protected function makeReplacements(&$item): void
+    protected function makeReplacements(array|string &$item): void
     {
-        if (is_string($item) && strpos($item, '%') !== false) {
+        if (is_string($item) && str_contains($item, '%')) {
             $search = $this->getSearchString($item);
             $replace = $this->getReplaceValue($search, $item);
 
@@ -227,12 +227,11 @@ class Config implements ConfigInterface
      * @param string $search
      * @param string $item
      *
-     * @return mixed
-     *
      * @throws ConfigException
      * @throws ReplacerException
+     * @return mixed
      */
-    protected function getReplaceValue(string $search, string $item)
+    protected function getReplaceValue(string $search, string $item): mixed
     {
         [$name, $value] = explode(':', $search, 2);
 
@@ -278,7 +277,7 @@ class Config implements ConfigInterface
     /**
      * {@inheritdoc}
      */
-    public function get(string $id, $default = null)
+    public function get(string $id, mixed $default = null): mixed
     {
         if (isset($this->cachedItems[$id])) {
             return $this->cachedItems[$id];
@@ -296,7 +295,7 @@ class Config implements ConfigInterface
      *
      * @return mixed
      */
-    protected function extractFromConfig(string $id)
+    protected function extractFromConfig(string $id): mixed
     {
         $item = $this->items;
 
@@ -331,7 +330,7 @@ class Config implements ConfigInterface
     /**
      * {@inheritdoc}
      */
-    public function addReader(string $name, string $reader, bool $force = false): ConfigInterface
+    public function addReader(string $name, string $reader, bool $force = false): static
     {
         if (!$force && isset(static::$readers[$name])) {
             throw new ConfigException('The reader with name "' . $name . '" is already in use');
@@ -353,7 +352,7 @@ class Config implements ConfigInterface
     /**
      * {@inheritdoc}
      */
-    public function addReplacer(string $name, string $replacer, bool $force = false): ConfigInterface
+    public function addReplacer(string $name, string $replacer, bool $force = false): static
     {
         if (!$force && isset($this->replacers[$name])) {
             throw new ConfigException('The replacer with name "' . $name . '" is already in use');

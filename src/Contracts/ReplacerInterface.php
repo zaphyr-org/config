@@ -14,9 +14,8 @@ interface ReplacerInterface
     /**
      * @param string $value
      *
-     * @return mixed
-     *
      * @throws ReplacerException
+     * @return mixed
      */
-    public function replace(string $value);
+    public function replace(string $value): mixed;
 }

@@ -36,7 +36,7 @@ interface ConfigInterface
      *
      * @return mixed
      */
-    public function get(string $id, $default = null);
+    public function get(string $id, mixed $default = null): mixed;
 
     /**
      * @param array<string, mixed> $items
@@ -53,11 +53,11 @@ interface ConfigInterface
      * @param string $reader
      * @param bool   $force
      *
-     * @return ConfigInterface
-     *
      * @throws ConfigException
+     * @return $this
+     *
      */
-    public function addReader(string $name, string $reader, bool $force = false): ConfigInterface;
+    public function addReader(string $name, string $reader, bool $force = false): static;
 
     /**
      * @return array<string, string>
@@ -69,11 +69,10 @@ interface ConfigInterface
      * @param string $replacer
      * @param bool   $force
      *
-     * @return ConfigInterface
-     *
      * @throws ConfigException
+     * @return $this
      */
-    public function addReplacer(string $name, string $replacer, bool $force = false): ConfigInterface;
+    public function addReplacer(string $name, string $replacer, bool $force = false): static;
 
     /**
      * @return array<string, string>
