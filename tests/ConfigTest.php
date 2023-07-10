@@ -86,6 +86,7 @@ class ConfigTest extends TestCase
         self::assertArrayHasKey('xml', $data);
         self::assertArrayHasKey('yaml', $data);
         self::assertArrayHasKey('yml', $data);
+        self::assertArrayHasKey('neon', $data);
     }
 
     public function testAddReadersInConstructor(): void
@@ -130,6 +131,7 @@ class ConfigTest extends TestCase
         self::assertArrayHasKey('xml', $data);
         self::assertArrayHasKey('yaml', $data);
         self::assertArrayHasKey('yml', $data);
+        self::assertArrayHasKey('neon', $data);
     }
 
     public function testLoadThrowsExceptionWhenNamespaceIsAlreadyInUse(): void
@@ -367,7 +369,7 @@ class ConfigTest extends TestCase
         self::assertEquals(['config' => ['foo' => 'bar']], $config->toArray());
     }
 
-    public function testReaderThrowsExeptionWhenReaderNameIsAlreadyInUse(): void
+    public function testReaderThrowsExceptionWhenReaderNameIsAlreadyInUse(): void
     {
         $this->expectException(ConfigException::class);
 

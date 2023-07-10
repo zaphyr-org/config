@@ -13,6 +13,7 @@ use Zaphyr\Config\Exceptions\ReplacerException;
 use Zaphyr\Config\Readers\ArrayReader;
 use Zaphyr\Config\Readers\IniReader;
 use Zaphyr\Config\Readers\JsonReader;
+use Zaphyr\Config\Readers\NeonReader;
 use Zaphyr\Config\Readers\XmlReader;
 use Zaphyr\Config\Readers\YamlReader;
 use Zaphyr\Config\Replacers\EnvReplacer;
@@ -42,6 +43,7 @@ class Config implements ConfigInterface
         'xml' => XmlReader::class,
         'yml' => YamlReader::class,
         'yaml' => YamlReader::class,
+        'neon' => NeonReader::class,
     ];
 
     /**
@@ -191,12 +193,12 @@ class Config implements ConfigInterface
     }
 
     /**
-     * @param string|array<string, mixed> $item
+     * @param mixed $item
      *
      * @throws ConfigException
      * @throws ReplacerException
      */
-    protected function makeReplacements(array|string &$item): void
+    protected function makeReplacements(mixed &$item): void
     {
         if (is_string($item) && str_contains($item, '%')) {
             $search = $this->getSearchString($item);

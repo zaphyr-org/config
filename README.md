@@ -6,7 +6,13 @@
 
 # CONFIG
 
-Load configuration files the easy way. This configuration loader supports PHP, INI, JSON, XML and YAML file extensions.
+Load configuration files the easy way. This configuration loader supports
+[PHP](https://en.wikipedia.org/wiki/PHP),
+[INI](https://en.wikipedia.org/wiki/INI_file),
+[JSON](https://en.wikipedia.org/wiki/JSON),
+[XML](https://en.wikipedia.org/wiki/XML),
+[YAML](https://en.wikipedia.org/wiki/YAML)
+and [NEON](https://ne-on.org/) file extensions.
 
 ## System Requirements
 

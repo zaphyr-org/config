@@ -1,6 +1,6 @@
 {
     "name": "zaphyr-org/config",
-    "description": "Load configuration files the easy way. This configuration loader supports PHP, INI, JSON, XML and YAML file extensions.",
+    "description": "Load configuration files the easy way. This configuration loader supports PHP, INI, JSON, XML, YAML and NEON file extensions.",
     "keywords": [
         "config",
         "loader",
@@ -8,7 +8,8 @@
         "json",
         "yaml",
         "xml",
-        "ini"
+        "ini",
+        "neon"
     ],
     "license": "MIT",
     "authors": [
@@ -24,6 +25,7 @@
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
+        "nette/neon": "^3.4",
         "symfony/yaml": "^6.2"
     },
     "require-dev": {
