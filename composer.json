@@ -26,6 +26,7 @@
         "ext-libxml": "*",
         "ext-simplexml": "*",
         "nette/neon": "^3.4",
+        "psr/container": "^2.0",
         "symfony/yaml": "^6.2"
     },
     "require-dev": {
@@ -34,6 +35,12 @@
         "phpunit/phpunit": "^10.0",
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "^4.0"
+    },
+    "provide": {
+        "psr/container-implementation": "^2.0"
+    },
+    "suggest": {
+        "zaphyr-org/container": "Powerful auto wiring dependency injection container including PSR-11."
     },
     "autoload": {
         "psr-4": {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zaphyr\ConfigTests;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Zaphyr\Config\Config;
 use Zaphyr\Config\Exceptions\ConfigException;
@@ -369,6 +370,23 @@ class ConfigTest extends TestCase
         self::assertEquals(['config' => ['foo' => 'bar']], $config->toArray());
     }
 
+    public function testAddReaderResolvedByContainerInstance(): void
+    {
+        $containerMock = $this->createMock(ContainerInterface::class);
+
+        $containerMock->expects(self::once())
+            ->method('get')
+            ->with(CustomExtensionReader::class)
+            ->willReturn(new CustomExtensionReader());
+
+        $config = new Config();
+        $config->setContainer($containerMock);
+        $config->addReader('extension', CustomExtensionReader::class);
+        $config->load(['config' => __DIR__ . '/TestAsset/invalid/unsupported.extension']);
+
+        self::assertEquals(['config' => ['foo' => 'bar']], $config->toArray());
+    }
+
     public function testReaderThrowsExceptionWhenReaderNameIsAlreadyInUse(): void
     {
         $this->expectException(ConfigException::class);
@@ -401,6 +419,30 @@ class ConfigTest extends TestCase
         );
 
         $config = new Config();
+        $config->addReplacer('this', CustomReplacer::class);
+        $config->load(['config' => $this->tempFile]);
+
+        self::assertEquals('The value string is replaced', $config->get('config.foo'));
+    }
+
+    public function testAddReplacerIsResolvedByContainerInstance(): void
+    {
+        file_put_contents(
+            $this->tempFile = __DIR__ . '/TestAsset/replacer.php',
+            '<?php return ["foo" => "The value %this:string% is replaced"];'
+        );
+
+        $containerMock = $this->createMock(ContainerInterface::class);
+
+        $containerMock->expects(self::exactly(2))
+            ->method('get')
+            ->willReturnCallback(fn ($key) => match ($key) {
+                ArrayReader::class => new ArrayReader(),
+                CustomReplacer::class => new CustomReplacer(),
+            });
+
+        $config = new Config();
+        $config->setContainer($containerMock);
         $config->addReplacer('this', CustomReplacer::class);
         $config->load(['config' => $this->tempFile]);
 
@@ -441,5 +483,21 @@ class ConfigTest extends TestCase
             unlink($tempFile);
             throw $e;
         }
+    }
+
+    /**
+     * ------------------------------------------
+     * DEPENDENCY INJECTION
+     * ------------------------------------------
+     */
+
+    public function testGetContainer(): void
+    {
+        $containerMock = $this->createMock(ContainerInterface::class);
+
+        $config = new Config();
+        $config->setContainer($containerMock);
+
+        self::assertSame($containerMock, $config->getContainer());
     }
 }

@@ -9,7 +9,7 @@ use Zaphyr\Config\Exceptions\ConfigException;
 /**
  * @author merloxx <merloxx@zaphyr.org>
  */
-interface ConfigInterface
+interface ConfigInterface extends ContainerAwareInterface
 {
     /**
      * @param array<int|string, mixed> $items

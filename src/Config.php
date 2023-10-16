@@ -17,12 +17,15 @@ use Zaphyr\Config\Readers\NeonReader;
 use Zaphyr\Config\Readers\XmlReader;
 use Zaphyr\Config\Readers\YamlReader;
 use Zaphyr\Config\Replacers\EnvReplacer;
+use Zaphyr\Config\Traits\ContainerAwareTrait;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
  */
 class Config implements ConfigInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * @var array<string, mixed>
      */
@@ -36,7 +39,7 @@ class Config implements ConfigInterface
     /**
      * @var array<string, string>
      */
-    protected static array $readers = [
+    protected array $readers = [
         'php' => ArrayReader::class,
         'ini' => IniReader::class,
         'json' => JsonReader::class,
@@ -165,7 +168,7 @@ class Config implements ConfigInterface
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
 
-        if (!array_key_exists($extension, static::$readers)) {
+        if (!array_key_exists($extension, $this->readers)) {
             throw new ConfigException('The file extension "' . $extension . '" has no valid reader');
         }
 
@@ -184,9 +187,9 @@ class Config implements ConfigInterface
     protected function getReaderInstance(string $reader): ReaderInterface
     {
         if (!isset($this->cachedReaders[$reader])) {
-            /** @var ReaderInterface $readerInstance */
-            $readerInstance = static::$readers[$reader];
-            $this->cachedReaders[$reader] = new $readerInstance();
+            $this->cachedReaders[$reader] = $this->container !== null
+                ? $this->container->get($this->readers[$reader])
+                : new $this->readers[$reader]();
         }
 
         return $this->cachedReaders[$reader];
@@ -252,9 +255,9 @@ class Config implements ConfigInterface
     protected function getReplacerInstance(string $replacer): ReplacerInterface
     {
         if (!isset($this->cachedReplacers[$replacer])) {
-            /** @var ReplacerInterface $replacerInstance */
-            $replacerInstance = $this->replacers[$replacer];
-            $this->cachedReplacers[$replacer] = new $replacerInstance();
+            $this->cachedReplacers[$replacer] = $this->container !== null
+                ? $this->container->get($this->replacers[$replacer])
+                : new $this->replacers[$replacer]();
         }
 
         return $this->cachedReplacers[$replacer];
@@ -334,11 +337,11 @@ class Config implements ConfigInterface
      */
     public function addReader(string $name, string $reader, bool $force = false): static
     {
-        if (!$force && isset(static::$readers[$name])) {
+        if (!$force && isset($this->readers[$name])) {
             throw new ConfigException('The reader with name "' . $name . '" is already in use');
         }
 
-        static::$readers[$name] = $reader;
+        $this->readers[$name] = $reader;
 
         return $this;
     }
@@ -348,7 +351,7 @@ class Config implements ConfigInterface
      */
     public function getReaders(): array
     {
-        return static::$readers;
+        return $this->readers;
     }
 
     /**
