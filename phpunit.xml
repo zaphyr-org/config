@@ -7,13 +7,10 @@
          stopOnSkipped="false"
          stopOnRisky="false"
          bootstrap="vendor/autoload.php"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.4/phpunit.xsd"
          cacheDirectory=".phpunit.cache"
 >
   <coverage>
-    <include>
-      <directory suffix=".php">./src</directory>
-    </include>
     <report>
       <html outputDirectory="./tests/report/code-coverage" lowUpperBound="50" highLowerBound="80"/>
     </report>
@@ -26,4 +23,9 @@
   <logging>
     <testdoxHtml outputFile="./tests/report/testdox.html"/>
   </logging>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
 </phpunit>
