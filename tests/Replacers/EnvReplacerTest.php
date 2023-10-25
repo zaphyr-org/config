@@ -15,12 +15,12 @@ class EnvReplacerTest extends TestCase
      */
     protected EnvReplacer $envReplacer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->envReplacer = new EnvReplacer();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unset($this->envReplacer);
     }

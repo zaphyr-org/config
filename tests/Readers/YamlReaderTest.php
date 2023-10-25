@@ -15,12 +15,12 @@ class YamlReaderTest extends TestCase
      */
     protected string $tempFile;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         file_put_contents($this->tempFile = __DIR__ . '/temp.yml', 'foo: bar');
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unlink($this->tempFile);
     }

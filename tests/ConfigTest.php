@@ -25,7 +25,7 @@ class ConfigTest extends TestCase
      */
     protected string $tempDir;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         file_put_contents(
             $this->tempFile = __DIR__ . '/TestAsset/temp.php',
@@ -34,7 +34,7 @@ class ConfigTest extends TestCase
         mkdir($this->tempDir = __DIR__ . '/TestAsset/temp');
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unlink($this->tempFile);
         rmdir($this->tempDir);

@@ -15,12 +15,12 @@ class JsonReaderTest extends TestCase
      */
     protected string $tempFile;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         file_put_contents($this->tempFile = __DIR__ . '/temp.json', json_encode(['foo' => 'bar']));
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         unlink($this->tempFile);
     }
