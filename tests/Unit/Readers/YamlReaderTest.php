@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\ConfigTests\Readers;
+namespace Zaphyr\ConfigTests\Unit\Readers;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Config\Exceptions\ReaderException;
-use Zaphyr\Config\Readers\JsonReader;
+use Zaphyr\Config\Readers\YamlReader;
 
-class JsonReaderTest extends TestCase
+class YamlReaderTest extends TestCase
 {
     /**
      * @var string
@@ -17,7 +17,7 @@ class JsonReaderTest extends TestCase
 
     protected function setUp(): void
     {
-        file_put_contents($this->tempFile = __DIR__ . '/temp.json', json_encode(['foo' => 'bar']));
+        file_put_contents($this->tempFile = __DIR__ . '/temp.yml', 'foo: bar');
     }
 
     protected function tearDown(): void
@@ -32,15 +32,15 @@ class JsonReaderTest extends TestCase
 
     public function testRead(): void
     {
-        self::assertEquals(['foo' => 'bar'], (new JsonReader())->read($this->tempFile));
+        self::assertEquals(['foo' => 'bar'], (new YamlReader())->read($this->tempFile));
     }
 
     public function testReadThrowsExceptionWhenFileIsBroken(): void
     {
         $this->expectException(ReaderException::class);
 
-        file_put_contents($this->tempFile, '{"foo"');
+        file_put_contents($this->tempFile, '[array');
 
-        (new JsonReader())->read($this->tempFile);
+        (new YamlReader())->read($this->tempFile);
     }
 }

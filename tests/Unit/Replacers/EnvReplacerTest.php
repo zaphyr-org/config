@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\ConfigTests\Replacers;
+namespace Zaphyr\ConfigTests\Unit\Replacers;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Config\Exceptions\ReplacerException;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\ConfigTests\Readers;
+namespace Zaphyr\ConfigTests\Unit\Readers;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Config\Exceptions\ReaderException;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\ConfigTests\Readers;
+namespace Zaphyr\ConfigTests\Unit\Readers;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Config\Exceptions\ReaderException;
-use Zaphyr\Config\Readers\NeonReader;
+use Zaphyr\Config\Readers\IniReader;
 
-class NeonReaderTest extends TestCase
+class IniReaderTest extends TestCase
 {
     /**
      * @var string
@@ -17,7 +17,7 @@ class NeonReaderTest extends TestCase
 
     protected function setUp(): void
     {
-        file_put_contents($this->tempFile = __DIR__ . '/temp.neon', 'foo: bar');
+        file_put_contents($this->tempFile = __DIR__ . '/temp.php', 'foo=bar');
     }
 
     protected function tearDown(): void
@@ -32,7 +32,7 @@ class NeonReaderTest extends TestCase
 
     public function testRead(): void
     {
-        self::assertEquals(['foo' => 'bar'], (new NeonReader())->read(__DIR__ . '/temp.neon'));
+        self::assertEquals(['foo' => 'bar'], (new IniReader())->read($this->tempFile));
     }
 
     public function testReadThrowsExceptionWhenFileIsBroken(): void
@@ -41,6 +41,6 @@ class NeonReaderTest extends TestCase
 
         file_put_contents($this->tempFile, '[array');
 
-        (new NeonReader())->read($this->tempFile);
+        (new IniReader())->read($this->tempFile);
     }
 }

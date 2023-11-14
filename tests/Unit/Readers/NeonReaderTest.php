@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\ConfigTests\Readers;
+namespace Zaphyr\ConfigTests\Unit\Readers;
 
 use PHPUnit\Framework\TestCase;
 use Zaphyr\Config\Exceptions\ReaderException;
-use Zaphyr\Config\Readers\XmlReader;
+use Zaphyr\Config\Readers\NeonReader;
 
-class XmlReaderTest extends TestCase
+class NeonReaderTest extends TestCase
 {
     /**
      * @var string
@@ -17,10 +17,7 @@ class XmlReaderTest extends TestCase
 
     protected function setUp(): void
     {
-        file_put_contents(
-            $this->tempFile = __DIR__ . '/temp.xml',
-            '<?xml version="1.0" encoding="UTF-8"?><r><foo>bar</foo></r>'
-        );
+        file_put_contents($this->tempFile = __DIR__ . '/temp.neon', 'foo: bar');
     }
 
     protected function tearDown(): void
@@ -35,15 +32,15 @@ class XmlReaderTest extends TestCase
 
     public function testRead(): void
     {
-        self::assertEquals(['foo' => 'bar'], (new XmlReader())->read($this->tempFile));
+        self::assertEquals(['foo' => 'bar'], (new NeonReader())->read(__DIR__ . '/temp.neon'));
     }
 
     public function testReadThrowsExceptionWhenFileIsBroken(): void
     {
         $this->expectException(ReaderException::class);
 
-        file_put_contents($this->tempFile, '<?xml version="1.0" encoding="UTF-8"?><r><foobar</foo></r>');
+        file_put_contents($this->tempFile, '[array');
 
-        (new XmlReader())->read($this->tempFile);
+        (new NeonReader())->read($this->tempFile);
     }
 }

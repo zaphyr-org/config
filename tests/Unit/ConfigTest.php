@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zaphyr\ConfigTests;
+namespace Zaphyr\ConfigTests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -10,6 +10,7 @@ use ReflectionClass;
 use Zaphyr\Config\Config;
 use Zaphyr\Config\Exceptions\ConfigException;
 use Zaphyr\Config\Readers\ArrayReader;
+use Zaphyr\Config\Traits\ContainerAwareTrait;
 use Zaphyr\ConfigTests\TestAsset\CustomExtensionReader;
 use Zaphyr\ConfigTests\TestAsset\CustomReplacer;
 
@@ -28,10 +29,10 @@ class ConfigTest extends TestCase
     protected function setUp(): void
     {
         file_put_contents(
-            $this->tempFile = __DIR__ . '/TestAsset/temp.php',
+            $this->tempFile = dirname(__DIR__) . '/TestAsset/temp.php',
             '<?php return ["foo" => ["bar" => "baz"]];'
         );
-        mkdir($this->tempDir = __DIR__ . '/TestAsset/temp');
+        mkdir($this->tempDir = dirname(__DIR__) . '/TestAsset/temp');
     }
 
     protected function tearDown(): void
@@ -78,7 +79,7 @@ class ConfigTest extends TestCase
 
     public function testLoadDirectoryFromConstructor(): void
     {
-        $config = new Config([__DIR__ . '/TestAsset/config']);
+        $config = new Config([dirname(__DIR__) . '/TestAsset/config']);
         $data = $config->toArray();
 
         self::assertArrayHasKey('array', $data);
@@ -123,7 +124,7 @@ class ConfigTest extends TestCase
     public function testLoadWithDirectory(): void
     {
         $config = new Config();
-        $config->load([__DIR__ . '/TestAsset/config']);
+        $config->load([dirname(__DIR__) . '/TestAsset/config']);
         $data = $config->toArray();
 
         self::assertArrayHasKey('array', $data);
@@ -143,14 +144,14 @@ class ConfigTest extends TestCase
 
         $config->load(
             [
-                'foo' => __DIR__ . '/TestAsset/config/array.php',
-                'bar' => __DIR__ . '/TestAsset/config/json.json',
+                'foo' => dirname(__DIR__) . '/TestAsset/config/array.php',
+                'bar' => dirname(__DIR__) . '/TestAsset/config/json.json',
             ]
         );
 
         $config->load(
             [
-                'foo' => __DIR__ . '/TestAsset/config/yml.yml',
+                'foo' => dirname(__DIR__) . '/TestAsset/config/yml.yml',
             ]
         );
     }
@@ -194,7 +195,7 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
 
         $config = new Config();
-        $config->load(['invalid' => __DIR__ . '/TestAsset/invalid/unsupported.extension']);
+        $config->load(['invalid' => dirname(__DIR__) . '/TestAsset/invalid/unsupported.extension']);
     }
 
     public function testLoadThrowsExceptionWhenFileExtensionInDirectoryIsInvalid(): void
@@ -202,13 +203,13 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
 
         $config = new Config();
-        $config->load([__DIR__ . '/TestAsset/invalid']);
+        $config->load([dirname(__DIR__) . '/TestAsset/invalid']);
     }
 
     public function testLoadReplacesPlaceholders(): void
     {
         file_put_contents(
-            $this->tempFile = __DIR__ . '/TestAsset/placeholder.php',
+            $this->tempFile = dirname(__DIR__) . '/TestAsset/placeholder.php',
             '<?php return ["driver" => "%env:DB_DRIVER%"];'
         );
 
@@ -222,7 +223,7 @@ class ConfigTest extends TestCase
     public function testLoadReplacesOnlyReplacePortion(): void
     {
         file_put_contents(
-            $this->tempFile = __DIR__ . '/TestAsset/placeholder.php',
+            $this->tempFile = dirname(__DIR__) . '/TestAsset/placeholder.php',
             '<?php return ["name" => "SITE NAME: %env:SITE_NAME% (online)"];'
         );
 
@@ -254,7 +255,7 @@ class ConfigTest extends TestCase
     public function testLoadCachesReplacerInstances(): void
     {
         file_put_contents(
-            $this->tempFile = __DIR__ . '/TestAsset/replacer.php',
+            $this->tempFile = dirname(__DIR__) . '/TestAsset/replacer.php',
             '<?php return ["foo" => "The value %this:string% is replaced"];'
         );
 
@@ -365,7 +366,7 @@ class ConfigTest extends TestCase
     {
         $config = new Config();
         $config->addReader('extension', CustomExtensionReader::class);
-        $config->load(['config' => __DIR__ . '/TestAsset/invalid/unsupported.extension']);
+        $config->load(['config' => dirname(__DIR__) . '/TestAsset/invalid/unsupported.extension']);
 
         self::assertEquals(['config' => ['foo' => 'bar']], $config->toArray());
     }
@@ -382,7 +383,7 @@ class ConfigTest extends TestCase
         $config = new Config();
         $config->setContainer($containerMock);
         $config->addReader('extension', CustomExtensionReader::class);
-        $config->load(['config' => __DIR__ . '/TestAsset/invalid/unsupported.extension']);
+        $config->load(['config' => dirname(__DIR__) . '/TestAsset/invalid/unsupported.extension']);
 
         self::assertEquals(['config' => ['foo' => 'bar']], $config->toArray());
     }
@@ -414,7 +415,7 @@ class ConfigTest extends TestCase
     public function testAddReplacer(): void
     {
         file_put_contents(
-            $this->tempFile = __DIR__ . '/TestAsset/replacer.php',
+            $this->tempFile = dirname(__DIR__) . '/TestAsset/replacer.php',
             '<?php return ["foo" => "The value %this:string% is replaced"];'
         );
 
@@ -428,7 +429,7 @@ class ConfigTest extends TestCase
     public function testAddReplacerIsResolvedByContainerInstance(): void
     {
         file_put_contents(
-            $this->tempFile = __DIR__ . '/TestAsset/replacer.php',
+            $this->tempFile = dirname(__DIR__) . '/TestAsset/replacer.php',
             '<?php return ["foo" => "The value %this:string% is replaced"];'
         );
 
@@ -472,7 +473,7 @@ class ConfigTest extends TestCase
         $this->expectException(ConfigException::class);
 
         file_put_contents(
-            $tempFile = __DIR__ . '/TestAsset/replacer.php',
+            $tempFile = dirname(__DIR__) . '/TestAsset/replacer.php',
             '<?php return ["foo" => "The value %nope:string% is replaced"];'
         );
 
@@ -499,5 +500,16 @@ class ConfigTest extends TestCase
         $config->setContainer($containerMock);
 
         self::assertSame($containerMock, $config->getContainer());
+    }
+
+    public function testSetContainerThrowsExceptionWhenNotInstanceOfContainerAwareInterface(): void
+    {
+        $this->expectException(ConfigException::class);
+
+        $config = new class {
+            use ContainerAwareTrait;
+        };
+
+        $config->setContainer($this->createMock(ContainerInterface::class));
     }
 }
