@@ -356,6 +356,17 @@ class ConfigTest extends TestCase
         self::assertEquals($items, $config->getItems());
     }
 
+    public function testSetItemsResetsCachedItems(): void
+    {
+        $config = new Config();
+
+        $config->setItems(['foo' => ['bar' => 'baz']]);
+        self::assertEquals('baz', $config->get('foo.bar'));
+
+        $config->setItems(['foo' => ['bar' => 'qux']]);
+        self::assertEquals('qux', $config->get('foo.bar'));
+    }
+
     /**
      * ------------------------------------------
      * ADD READER

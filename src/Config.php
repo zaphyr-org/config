@@ -321,6 +321,7 @@ class Config implements ConfigInterface
      */
     public function setItems(array $items): void
     {
+        $this->cachedItems = [];
         $this->items = $items;
     }
 
