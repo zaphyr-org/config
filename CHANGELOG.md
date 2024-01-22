@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file,
 in reverse chronological order by release.
 
+## [v2.2.2](https://github.com/zaphyr-org/config/compare/2.2.1...2.2.2) [2024-01-22]
+
+### Fixed:
+* Calling the `setItems` method, all previously cached config items are now reset
+
 ## [v2.2.1](https://github.com/zaphyr-org/config/compare/2.2.0...2.2.1) [2023-11-14]
 
 ### New:
