@@ -74,13 +74,13 @@ class ConfigTest extends TestCase
             ]
         );
 
-        self::assertEquals(['config' => ['foo' => ['bar' => 'baz']]], $config->toArray());
+        self::assertEquals(['config' => ['foo' => ['bar' => 'baz']]], $config->getItems());
     }
 
     public function testLoadDirectoryFromConstructor(): void
     {
         $config = new Config([dirname(__DIR__) . '/TestAsset/config']);
-        $data = $config->toArray();
+        $data = $config->getItems();
 
         self::assertArrayHasKey('array', $data);
         self::assertArrayHasKey('ini', $data);
@@ -118,14 +118,14 @@ class ConfigTest extends TestCase
         $config = new Config();
         $config->load(['config' => $this->tempFile]);
 
-        self::assertEquals(['config' => ['foo' => ['bar' => 'baz']]], $config->toArray());
+        self::assertEquals(['config' => ['foo' => ['bar' => 'baz']]], $config->getItems());
     }
 
     public function testLoadWithDirectory(): void
     {
         $config = new Config();
         $config->load([dirname(__DIR__) . '/TestAsset/config']);
-        $data = $config->toArray();
+        $data = $config->getItems();
 
         self::assertArrayHasKey('array', $data);
         self::assertArrayHasKey('ini', $data);
@@ -217,7 +217,7 @@ class ConfigTest extends TestCase
 
         $config = new Config(['db' => $this->tempFile]);
 
-        self::assertEquals(['db' => ['driver' => 'mysql']], $config->toArray());
+        self::assertEquals(['db' => ['driver' => 'mysql']], $config->getItems());
     }
 
     public function testLoadReplacesOnlyReplacePortion(): void
@@ -231,7 +231,7 @@ class ConfigTest extends TestCase
 
         $config = new Config(['config' => $this->tempFile]);
 
-        self::assertEquals(['config' => ['name' => 'SITE NAME: merloxx (online)']], $config->toArray());
+        self::assertEquals(['config' => ['name' => 'SITE NAME: merloxx (online)']], $config->getItems());
     }
 
     public function testLoadThrowsExceptionIfConfigFileOrDirectoryDoesNotExist(): void
@@ -379,7 +379,7 @@ class ConfigTest extends TestCase
         $config->addReader('extension', CustomExtensionReader::class);
         $config->load(['config' => dirname(__DIR__) . '/TestAsset/invalid/unsupported.extension']);
 
-        self::assertEquals(['config' => ['foo' => 'bar']], $config->toArray());
+        self::assertEquals(['config' => ['foo' => 'bar']], $config->getItems());
     }
 
     public function testAddReaderResolvedByContainerInstance(): void
@@ -396,7 +396,7 @@ class ConfigTest extends TestCase
         $config->addReader('extension', CustomExtensionReader::class);
         $config->load(['config' => dirname(__DIR__) . '/TestAsset/invalid/unsupported.extension']);
 
-        self::assertEquals(['config' => ['foo' => 'bar']], $config->toArray());
+        self::assertEquals(['config' => ['foo' => 'bar']], $config->getItems());
     }
 
     public function testReaderThrowsExceptionWhenReaderNameIsAlreadyInUse(): void

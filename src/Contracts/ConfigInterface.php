@@ -20,6 +20,7 @@ interface ConfigInterface extends ContainerAwareInterface
 
     /**
      * @return array<string, mixed>
+     * @deprecated Will be removed in v3.0. Use method "getItems" instead
      */
     public function toArray(): array;
 
