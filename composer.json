@@ -27,7 +27,8 @@
         "ext-simplexml": "*",
         "nette/neon": "^3.4",
         "psr/container": "^2.0",
-        "symfony/yaml": "^6.2"
+        "symfony/yaml": "^6.2",
+        "zaphyr-org/utils": "^2.2"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",

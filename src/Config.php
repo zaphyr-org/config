@@ -18,6 +18,8 @@ use Zaphyr\Config\Readers\XmlReader;
 use Zaphyr\Config\Readers\YamlReader;
 use Zaphyr\Config\Replacers\EnvReplacer;
 use Zaphyr\Config\Traits\ContainerAwareTrait;
+use Zaphyr\Utils\Arr;
+use Zaphyr\Utils\File;
 
 /**
  * @author merloxx <merloxx@zaphyr.org>
@@ -140,16 +142,18 @@ class Config implements ConfigInterface
             throw new ConfigException('The path "' . $path . '" is not readable');
         }
 
-        $files = glob($path . '/*');
+        $files = File::allFiles($path);
 
         if (!is_array($files)) {
             throw new ConfigException('The path "' . $path . '" is not readable');
         }
 
         foreach ($files as $file) {
-            $namespace = pathinfo($file, PATHINFO_FILENAME);
+            $namespace = str_replace([$path, DIRECTORY_SEPARATOR], ['', '.'], $file->getPathname());
+            $namespace = ltrim($namespace, '.');
+            $namespace = pathinfo($namespace, PATHINFO_FILENAME);
 
-            $this->loadFromFile($namespace, $file);
+            $this->loadFromFile($namespace, $file->getPathname());
         }
     }
 
@@ -176,7 +180,7 @@ class Config implements ConfigInterface
 
         array_walk_recursive($items, [$this, 'makeReplacements']);
 
-        $this->items = array_merge($this->items, [$namespace => $items]);
+        $this->items = Arr::add($this->items, $namespace, $items);
     }
 
     /**

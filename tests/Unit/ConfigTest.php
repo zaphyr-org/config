@@ -367,6 +367,16 @@ class ConfigTest extends TestCase
         self::assertEquals('qux', $config->get('foo.bar'));
     }
 
+
+    public function testGetItemsFromNestedDirectories(): void
+    {
+        $config = new Config([dirname(__DIR__) . '/TestAsset/config']);
+
+        self::assertEquals('Hello from subdir/file.yml', $config->get('subdir.file.message'));
+        self::assertEquals('Hello from subdir/subsubdir/file.yml', $config->get('subdir.subsubdir.file.message'));
+    }
+
+
     /**
      * ------------------------------------------
      * ADD READER
