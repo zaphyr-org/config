@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file,
 in reverse chronological order by release.
 
+## [v2.3.0](https://github.com/zaphyr-org/config/compare/2.2.2...2.3.0) [2024-12-05]
+
+### New:
+* Loading of config subdirectories added
+
+### Changed:
+* Marked `toArray` method as deprecated
+* Improved performance and code readability
+
 ## [v2.2.2](https://github.com/zaphyr-org/config/compare/2.2.1...2.2.2) [2024-01-22]
 
 ### Fixed:
