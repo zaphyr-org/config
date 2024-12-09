@@ -50,9 +50,9 @@ interface ConfigInterface extends ContainerAwareInterface
     public function getItems(): array;
 
     /**
-     * @param string $name
-     * @param string $reader
-     * @param bool   $force
+     * @param string                        $name
+     * @param class-string<ReaderInterface> $reader
+     * @param bool                          $force
      *
      * @throws ConfigException
      * @return $this
@@ -61,14 +61,14 @@ interface ConfigInterface extends ContainerAwareInterface
     public function addReader(string $name, string $reader, bool $force = false): static;
 
     /**
-     * @return array<string, string>
+     * @return array<string, class-string<ReaderInterface>>
      */
     public function getReaders(): array;
 
     /**
-     * @param string $name
-     * @param string $replacer
-     * @param bool   $force
+     * @param string                          $name
+     * @param class-string<ReplacerInterface> $replacer
+     * @param bool                            $force
      *
      * @throws ConfigException
      * @return $this
@@ -76,7 +76,7 @@ interface ConfigInterface extends ContainerAwareInterface
     public function addReplacer(string $name, string $replacer, bool $force = false): static;
 
     /**
-     * @return array<string, string>
+     * @return array<string, class-string<ReplacerInterface>>
      */
     public function getReplacers(): array;
 }

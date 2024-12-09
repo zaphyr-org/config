@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zaphyr\Config;
 
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Zaphyr\Config\Contracts\ConfigInterface;
 use Zaphyr\Config\Contracts\ReaderInterface;
 use Zaphyr\Config\Contracts\ReplacerInterface;
@@ -39,7 +41,7 @@ class Config implements ConfigInterface
     protected array $cachedItems = [];
 
     /**
-     * @var array<string, string>
+     * @var array<string, class-string<ReaderInterface>>
      */
     protected array $readers = [
         'php' => ArrayReader::class,
@@ -57,7 +59,7 @@ class Config implements ConfigInterface
     protected array $cachedReaders = [];
 
     /**
-     * @var array<string, string>
+     * @var array<string, class-string<ReplacerInterface>>
      */
     protected array $replacers = [
         'env' => EnvReplacer::class,
@@ -69,14 +71,13 @@ class Config implements ConfigInterface
     protected array $cachedReplacers = [];
 
     /**
-     * @param array<int|string, mixed>|null    $items
-     * @param array<string, class-string>|null $readers
-     * @param array<string, class-string>|null $replacers
+     * @param array<int|string, mixed>|null                       $items
+     * @param array<string, class-string<ReaderInterFace>>|null   $readers
+     * @param array<string, class-string<ReplacerInterface>>|null $replacers
      *
-     * @throws ConfigException
-     * @throws ReaderException
+     * @throws ConfigException|ReaderException
      */
-    public function __construct(array|null $items = null, array|null $readers = null, array|null $replacers = null)
+    public function __construct(?array $items = null, ?array $readers = null, ?array $replacers = null)
     {
         if ($readers) {
             foreach ($readers as $name => $reader) {
@@ -133,8 +134,7 @@ class Config implements ConfigInterface
     /**
      * @param string $path
      *
-     * @throws ConfigException
-     * @throws ReaderException
+     * @throws ConfigException|ReaderException
      */
     protected function loadFromDirectory(string $path): void
     {
@@ -161,8 +161,7 @@ class Config implements ConfigInterface
      * @param string $namespace
      * @param string $file
      *
-     * @throws ConfigException
-     * @throws ReaderException
+     * @throws ConfigException|ReaderException
      */
     protected function loadFromFile(string $namespace, string $file): void
     {
@@ -172,7 +171,7 @@ class Config implements ConfigInterface
 
         $extension = pathinfo($file, PATHINFO_EXTENSION);
 
-        if (!array_key_exists($extension, $this->readers)) {
+        if (!isset($this->readers[$extension])) {
             throw new ConfigException('The file extension "' . $extension . '" has no valid reader');
         }
 
@@ -190,20 +189,26 @@ class Config implements ConfigInterface
      */
     protected function getReaderInstance(string $reader): ReaderInterface
     {
-        if (!isset($this->cachedReaders[$reader])) {
-            $this->cachedReaders[$reader] = $this->container !== null
-                ? $this->container->get($this->readers[$reader])
-                : new $this->readers[$reader]();
-        }
+        return $this->cachedReaders[$reader] ??= $this->initializeReaderInstance($reader);
+    }
 
-        return $this->cachedReaders[$reader];
+    /**
+     * @param string $reader
+     *
+     * @throws ContainerExceptionInterface|NotFoundExceptionInterface
+     * @return ReaderInterface
+     */
+    protected function initializeReaderInstance(string $reader): ReaderInterface
+    {
+        return $this->container !== null
+            ? $this->container->get($this->readers[$reader])
+            : new $this->readers[$reader]();
     }
 
     /**
      * @param mixed $item
      *
-     * @throws ConfigException
-     * @throws ReplacerException
+     * @throws ConfigException|ReplacerException
      */
     protected function makeReplacements(mixed &$item): void
     {
@@ -236,15 +241,14 @@ class Config implements ConfigInterface
      * @param string $search
      * @param string $item
      *
-     * @throws ConfigException
-     * @throws ReplacerException
+     * @throws ConfigException|ReplacerException
      * @return mixed
      */
     protected function getReplaceValue(string $search, string $item): mixed
     {
         [$name, $value] = explode(':', $search, 2);
 
-        if (!array_key_exists($name, $this->replacers)) {
+        if (!isset($this->replacers[$name])) {
             throw new ConfigException('The item "' . $item . '" has no valid replacer');
         }
 
@@ -258,13 +262,20 @@ class Config implements ConfigInterface
      */
     protected function getReplacerInstance(string $replacer): ReplacerInterface
     {
-        if (!isset($this->cachedReplacers[$replacer])) {
-            $this->cachedReplacers[$replacer] = $this->container !== null
-                ? $this->container->get($this->replacers[$replacer])
-                : new $this->replacers[$replacer]();
-        }
+        return $this->cachedReplacers[$replacer] ??= $this->initializeReplacerInstance($replacer);
+    }
 
-        return $this->cachedReplacers[$replacer];
+    /**
+     * @param string $replacer
+     *
+     * @throws ContainerExceptionInterface|NotFoundExceptionInterface
+     * @return ReplacerInterface
+     */
+    protected function initializeReplacerInstance(string $replacer): ReplacerInterface
+    {
+        return $this->container !== null
+            ? $this->container->get($this->replacers[$replacer])
+            : new $this->replacers[$replacer]();
     }
 
     /**
@@ -306,15 +317,15 @@ class Config implements ConfigInterface
      */
     protected function extractFromConfig(string $id): mixed
     {
-        $item = $this->items;
+        $segments = explode('.', $id);
+        $item = &$this->items;
 
-        foreach (explode('.', $id) as $segment) {
-            if (isset($item[$segment])) {
-                $item = $item[$segment];
-                continue;
+        foreach ($segments as $segment) {
+            if (!isset($item[$segment])) {
+                return null;
             }
 
-            $item = null;
+            $item = &$item[$segment];
         }
 
         return $item;
