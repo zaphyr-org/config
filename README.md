@@ -28,11 +28,12 @@ composer require zaphyr-org/config
 
 ## Documentation
 
-You can read the full documentation [here](https://zaphyr.org/docs/2.x/repositories/config).
+You can read the full documentation [here](https://zaphyr.org/docs/repositories/latest/config).
 
 ## Issues
 
-Bug reports and feature requests can be submitted on the [GitHub Issue Tracker](https://github.com/zaphyr-org/config/issues).
+Bug reports and feature requests can be submitted on
+the [GitHub Issue Tracker](https://github.com/zaphyr-org/config/issues).
 
 ## Security
 
