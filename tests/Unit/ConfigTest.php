@@ -53,7 +53,6 @@ class ConfigTest extends TestCase
     ): void {
         $reflection = new ReflectionClass($actualClassOrObject);
         $property = $reflection->getProperty($actualAttributeName);
-        $property->setAccessible(true);
 
         $value = $property->getValue($actualClassOrObject);
 
@@ -174,9 +173,11 @@ class ConfigTest extends TestCase
     {
         $this->expectException(ConfigException::class);
 
-        chmod($this->tempFile, 0000);
+        $config = $this->getMockBuilder(Config::class)
+            ->onlyMethods(['isReadable'])
+            ->getMock();
+        $config->method('isReadable')->willReturn(false);
 
-        $config = new Config();
         $config->load(['config' => $this->tempFile]);
     }
 
@@ -184,9 +185,11 @@ class ConfigTest extends TestCase
     {
         $this->expectException(ConfigException::class);
 
-        chmod($this->tempDir, 0000);
+        $config = $this->getMockBuilder(Config::class)
+            ->onlyMethods(['isReadable'])
+            ->getMock();
+        $config->method('isReadable')->willReturn(false);
 
-        $config = new Config();
         $config->load([$this->tempDir]);
     }
 

@@ -1,8 +1,9 @@
-![License](https://img.shields.io/github/license/zaphyr-org/config?style=for-the-badge)
-![Version](https://img.shields.io/packagist/v/zaphyr-org/config?style=for-the-badge)
-![Downloads](https://img.shields.io/packagist/dt/zaphyr-org/config?style=for-the-badge)
-![Stars](https://img.shields.io/github/stars/zaphyr-org/config?style=for-the-badge)
-![Issues](https://img.shields.io/github/issues/zaphyr-org/config?style=for-the-badge)
+![License](https://img.shields.io/github/license/zaphyr-org/config)
+![Version](https://img.shields.io/packagist/v/zaphyr-org/config)
+![Issues](https://img.shields.io/github/issues/zaphyr-org/config)
+![Tests](https://github.com/zaphyr-org/config/actions/workflows/tests.yml/badge.svg)
+[![Codecov](https://codecov.io/gh/zaphyr-org/config/graph/badge.svg?token=2STP40KC71)](https://codecov.io/gh/zaphyr-org/config)
+
 
 # CONFIG
 
@@ -16,7 +17,15 @@ and [NEON](https://ne-on.org/) file extensions.
 
 ## System Requirements
 
-You need `PHP => 8.1.0` but the latest stable version of PHP is recommended.
+You need `PHP => 8.1` but the latest stable version of PHP is recommended.
+
+This package is continuously tested on the following PHP versions:
+
+- PHP 8.1
+- PHP 8.2
+- PHP 8.3
+- PHP 8.4
+- PHP 8.5
 
 ## Installation
 

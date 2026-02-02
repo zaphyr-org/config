@@ -138,7 +138,7 @@ class Config implements ConfigInterface
      */
     protected function loadFromDirectory(string $path): void
     {
-        if (!is_readable($path)) {
+        if (!$this->isReadable($path)) {
             throw new ConfigException('The path "' . $path . '" is not readable');
         }
 
@@ -165,7 +165,7 @@ class Config implements ConfigInterface
      */
     protected function loadFromFile(string $namespace, string $file): void
     {
-        if (!is_readable($file)) {
+        if (!$this->isReadable($file)) {
             throw new ConfigException('The file "' . $file . '" is not readable');
         }
 
@@ -180,6 +180,15 @@ class Config implements ConfigInterface
         array_walk_recursive($items, [$this, 'makeReplacements']);
 
         $this->items = Arr::add($this->items, $namespace, $items);
+    }
+
+    /**
+     * @param string $file
+     * @return bool
+     */
+    protected function isReadable(string $file): bool
+    {
+        return is_readable($file);
     }
 
     /**
